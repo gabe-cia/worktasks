@@ -89,6 +89,12 @@
         return model.sequelize.models.Task.findAll({
             include: {
                 association: "user",
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+            attributes: {
+                exclude: ['user_id']
             }
         });
     }
@@ -105,6 +111,15 @@
         return model.sequelize.models.Task.findOne({
             where: {
                 id: id
+            },
+            include: {
+                association: "user",
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+            attributes: {
+                exclude: ['user_id']
             }
         });
     }
@@ -157,7 +172,7 @@
         if (user_scope.user_role !== MANAGER_ROLE) {
             if (task.user_id !== user_scope.user_id) {
                 let error = new Error("This user cannot create or update tasks from another user");
-                error.status = 422;
+                error.status = 403;
                 throw error;
             }
         }
