@@ -36,7 +36,7 @@
         return model.sequelize.models.User.findAll({
             where: {
                 role: MANAGER_ROLE
-              }
+            }
         });
     };
 
@@ -44,7 +44,7 @@
         return await model.sequelize.models.User.findOne({
             where: {
                 username: username
-              }
+            }
         });
     };
 
@@ -52,7 +52,7 @@
         return await model.sequelize.models.User.findOne({
             where: {
                 id: id
-              }
+            }
         });
     };
 

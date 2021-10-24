@@ -3,7 +3,7 @@
 
     const userService = require('../service/user-service');
     const router = require('express').Router();
-    
+
     /**
      * @openapi
      * 

@@ -9,13 +9,13 @@
     const userService = require("./user-service");
     const messageService = require("./message-service");
 
-    let getAllTasks = async (user_scope) => {
+    let getAllTasks = async (user_scope, page_scope) => {
         // in case the user was a Manager, we should return all of the tasks
         // otherwise we should return only the task's that belongs to this user
         if (user_scope.user_role === MANAGER_ROLE) {
-            return _findAllTasks();
+            return _findAllTasks(page_scope);
         } else {
-            return _findTasksByUserId(user_scope.user_id);
+            return _findTasksByUserId(user_scope.user_id, page_scope);
         }
     };
 
@@ -52,11 +52,11 @@
         task.updated_at = now;
         task.created_at = savedTask.dataValues.created_at;
         task.user_id = savedTask.dataValues.user_id;
-        if(savedTask.dataValues.status !== task.status) {
-            if(task.status === WIP_TASK_STATUS) {
+        if (savedTask.dataValues.status !== task.status) {
+            if (task.status === WIP_TASK_STATUS) {
                 _notifyManagers(task);
             }
-            if(task.status === DONE_TASK_STATUS) {
+            if (task.status === DONE_TASK_STATUS) {
                 task.end_at = now;
             }
         }
@@ -85,7 +85,7 @@
         });
     };
 
-    async function _findAllTasks() {
+    async function _findAllTasks(page_scope) {
         return model.sequelize.models.Task.findAll({
             include: {
                 association: "user",
@@ -95,22 +95,26 @@
             },
             attributes: {
                 exclude: ['user_id']
-            }
+            },
+            limit: page_scope.page_size,
+            offset: page_scope.page_size * (page_scope.page - 1)
         });
     }
 
-    async function _findTasksByUserId(user_id) {
+    async function _findTasksByUserId(user_id, page_scope) {
         return model.sequelize.models.Task.findAll({
             where: {
                 user_id: user_id
-            }
+            },
+            limit: page_scope.page_size,
+            offset: page_scope.page_size * (page_scope.page - 1)
         });
     }
 
     async function _findTasksById(id) {
         return model.sequelize.models.Task.findOne({
             where: {
-                id: id
+                id: id,
             },
             include: {
                 association: "user",
