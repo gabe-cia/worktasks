@@ -1,2 +1,0 @@
-# worktasks
-Worktasks API challenge
