@@ -48,10 +48,12 @@
         let now = _dbDate(new Date());
         let savedTask = await _findTasksById(task.id);
 
+        _validateTask(savedTask);
+
         // adding properties to task object to be updated
         task.updated_at = now;
         task.created_at = savedTask.dataValues.created_at;
-        task.user_id = savedTask.dataValues.user_id;
+        task.user_id = savedTask.dataValues.user.id;
         if (savedTask.dataValues.status !== task.status) {
             if (task.status === WIP_TASK_STATUS) {
                 _notifyManagers(task);
@@ -106,6 +108,15 @@
             where: {
                 user_id: user_id
             },
+            include: {
+                association: "user",
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+            attributes: {
+                exclude: ['user_id']
+            },
             limit: page_scope.page_size,
             offset: page_scope.page_size * (page_scope.page - 1)
         });
@@ -156,7 +167,7 @@
 
     function _validateGetTaskPermission(user_scope, task) {
         if (user_scope.user_role !== MANAGER_ROLE) {
-            if (task.user_id !== user_scope.user_id) {
+            if (task.user.id !== user_scope.user_id) {
                 let error = new Error("Access denied for this user");
                 error.status = 403;
                 throw error;

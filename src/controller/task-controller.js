@@ -143,7 +143,7 @@
      *        schema:
      *          $ref: '#/definitions/ErrorResp'
      *      '404':
-     *        description: Whenever the task could not be found
+     *        description: Whenever the user could not be found
      *        schema:
      *          $ref: '#/definitions/ErrorResp'
      *      '401':
@@ -151,7 +151,7 @@
      *        schema:
      *          $ref: '#/definitions/ErrorResp'
      *      '403':
-     *        description: Whenever the user is trying to access a task that doesn't belong to him
+     *        description: Whenever the user is trying to create a task that doesn't belong to him
      *        schema:
      *          $ref: '#/definitions/ErrorResp'
      *      '500':
@@ -275,7 +275,7 @@
      *        schema:
      *          $ref: '#/definitions/ErrorResp'
      *      '403':
-     *        description: Whenever the user is trying to access a task that doesn't belong to him
+     *        description: Whenever a Technician is trying to delete a task
      *        schema:
      *          $ref: '#/definitions/ErrorResp'
      *      '500':
@@ -358,11 +358,6 @@
      *         pattern: 'yyyy-MM-dd HH:mm:ss'
      *         description: Task's done date
      *         example: 2020-03-04 10:20:30
-     *       user_id:
-     *         type: string
-     *         format: uuid
-     *         description: User's identifier that owns this task
-     *         example: 7d3ba767-9ea6-4461-b1b1-79e845aef66e
      *       user:
      *         $ref: '#/definitions/User'
      *   User:

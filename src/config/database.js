@@ -1,3 +1,5 @@
+const { host } = require("./config");
+
 (function () {
     'use strict';
 
@@ -10,6 +12,7 @@
         config.password,
         {
             dialect: config.dialect,
+            host: host,
             port: config.port,
             define: {
                 timestamps: false
