@@ -1,6 +1,7 @@
 version: "3"
 networks:
   worktasks_network:
+    name: worktasks_network
     driver: bridge
 
 services:
