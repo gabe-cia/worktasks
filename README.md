@@ -43,14 +43,14 @@ You can tear it down either using the commands:
 * ``npm run db-wipe``
 * ``npm run db-destroy``
 
+Be very carefull because the script reads the .env file in order to execute those commands, so be sure to run it on your development enviromnent only
+
 ### Building and Running
 To build the project you must simply run the command:
 * ``npm install``
 
 To run the project you should use:
 * ``npm run start``
-
-Be very carefull because the script reads the .env file in order to execute those commands, so be sure to run it on your development enviromnent only
 
 ### Integration test
 There are a total of 36 integration tests written to cover all of the API cases. To run it you can simply use the command:
