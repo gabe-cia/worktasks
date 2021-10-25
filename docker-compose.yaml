@@ -1,0 +1,37 @@
+version: "3"
+networks:
+  worktasks_network:
+    driver: bridge
+
+services:
+  database:
+    image: mysql:latest
+    container_name: worktasks_sql
+    environment:
+      MYSQL_ROOT_PASSWORD: "myp@ssw0rd"
+    networks:
+      - worktasks_network
+    ports: 
+      - "3306:3306"
+
+  mq:
+    image: rabbitmq:3-management
+    container_name: worktasks_mq
+    networks:
+      - worktasks_network
+    hostname:
+      my-rabbit
+    ports: 
+      - "15672:15672" 
+      - "5672:5672"
+
+  api: 
+    image: gabrieln/worktasksapi:1.0.0
+    container_name: worktasks_api
+    environment: 
+      MQ_URL: "amqp://worktasks_mq"
+      DB_HOST: "worktasks_sql"
+    networks:
+      - worktasks_network
+    ports: 
+      - "8000:8000"

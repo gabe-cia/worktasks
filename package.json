@@ -6,10 +6,10 @@
 	"scripts": {
 		"start": "nodemon ./index.js",
 		"test": "jest --runInBand",
-        "db-build": "npx sequelize db:migrate",
-        "db-populate": "npx sequelize db:seed:all",
-        "db-wipe": "npx sequelize db:seed:undo:all",
-        "db-destroy": "npx sequelize db:migrate:undo:all"
+		"db-build": "npx sequelize db:migrate",
+		"db-populate": "npx sequelize db:seed:all",
+		"db-wipe": "npx sequelize db:seed:undo:all",
+		"db-destroy": "npx sequelize db:migrate:undo:all"
 	},
 	"keywords": [
 		"task",

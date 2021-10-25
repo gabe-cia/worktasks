@@ -81,7 +81,7 @@
      *       password:
      *         type: string
      *         description: User's password
-     *         example: my-password
+     *         example: michael.scott
      *   LoginResp:
      *     type: object
      *     properties:

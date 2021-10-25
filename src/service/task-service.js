@@ -55,6 +55,8 @@
         task.created_at = savedTask.dataValues.created_at;
         task.user_id = savedTask.dataValues.user.id;
         if (savedTask.dataValues.status !== task.status) {
+            // in case the status changes to WIP we should notify the managers
+            // that this used started working at the task
             if (task.status === WIP_TASK_STATUS) {
                 _notifyManagers(task);
             }
